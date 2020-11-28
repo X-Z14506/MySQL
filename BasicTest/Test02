@@ -1,0 +1,59 @@
+有员工表、部门表和薪资表，根据查询条件写出对应的sql
+
+现在有员工表、部门表和薪资表。
+部门表depart的字段有depart_id， name；
+员工表 staff 的字段有 staff_id， name， age， depart_id；
+薪资表salary 的字段有 salary_id，staff_id，salary，month。
+
+
+
+（问题a）：求每个部门'2016-09'月份的部门薪水总额
+    SELECT
+    dep.NAME,
+    sum( sal.salary ) 
+    FROM
+    salary sal
+    JOIN staff sta ON sal.staff_id = sta.staff_id
+    JOIN depart dep ON sta.depart_id = dep.depart_id 
+    WHERE
+    YEAR ( sal.MONTH ) = 2016 
+    AND MONTH ( sal.MONTH ) = 9 
+    GROUP BY
+    dep.depart_id
+    /*说明：mysql中年和月的函数分别是year(字段)，month(字段)
+            查询要求的是每个部门的信息，所以要按照部门进行分组，部门和员工为1:m，
+            员工与薪水为1:m，查询要求有部门，有薪水，所以必须关联3张表查询
+           */
+
+（问题b）：求每个部门的部门人数，要求输出部门名称和人数
+    SELECT
+    dep.NAME,
+    count( sta.staff_id ) 
+    FROM
+    staff sta
+    JOIN depart dep ON dep.depart_id = sta.depart_id 
+    GROUP BY
+    sta.depart_id
+    /*
+    说明：查询要求的信息有部门，有人数，人数只能从员工表中获取，所以关联表为部门表/员工表。按照部门id分组查询员工id的行数
+    */
+
+
+（问题c）：求公司每个部门的月支出薪资数，要求输出月份和本月薪资总数
+    SELECT
+    dep.NAME,
+    sal.MONTH,
+    sum( sal.salary ) 
+    FROM
+    depart dep
+    JOIN staff sta ON dep.depart_id = sta.depart_id
+    JOIN salary sal ON sta.staff_id = sal.staff_id 
+    GROUP BY
+    dep.depart_id,
+    sal.MONTH
+    /*
+    说明：按照题目要求，查询信息有部门/月/每个部门每月薪资总额，其中薪水信息再薪水表中，
+    每个员工可以有多条薪资记录（不同时间）。所以需要按照部门分组，再按照月份分组，查询分组的部门在不同月份下的总薪水
+    */
+
+
