@@ -1,0 +1,26 @@
+有一张员工表emp，字段：姓名name，性别sex，部门depart，工资salary。查询以下数据：
+
+1、查询男女员工的平均工资
+select sex,avg(salary) from emp group by sex;
+//说明：平均值使用聚合函数avg，并且按照性别男女分组，group by 性别字段
+
+
+2、查询各部门的总薪水
+select depart,sum(salary) from emp group by depart;
+//说明：总薪水使用聚合函数sum取薪水字段求和，并且按照部门字段分组，group by 部门字段
+
+
+3、查询总薪水排名第二的部门
+select depart,sum(salary) from emp group by departorder by sum(salary) desc limit 1,1;
+//说明：order by语句先按照总薪水排序，之后取第二条数据，可以使用分页，每一页1条数据，第二页就是该结果
+
+
+4、查询姓名重复的员工信息
+select name from emp group by name having count(name)>1;
+//说明：名字重复，说明同一个名字有多条数据，可以先按照名字分组，分组之后再过滤行数大于1的，就表示同一个名字至少有2条记录，重复了
+
+
+5、查询各部门薪水大于10000的男性员工的平均薪水
+select depart,avg(salary) from emp where salary>10000 and sex='男' group by depart;
+//说明：这里需要注意题目要求是查询薪水大于10000的男性员工，这个是在按部门分组前就过滤，在过滤后的结果集中再查询各个部门的平均薪水
+
