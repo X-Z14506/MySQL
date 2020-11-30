@@ -1,0 +1,24 @@
+/*
+有两个表分别如下：
+表A(varchar(32) name， int grade)
+数据：zhangshan 80， lisi 60， wangwu 84
+表B(varchar(32) name， int age)
+数据：zhangshan 26， lisi 24， wangwu 26， wutian 26
+写SQL语句得到如下查询结果：
+| NAME   | GRADE | AGE |
+| --------- | ----- | ---- |
+| zhangshan | 80  | 26  |
+| lisi   | 60  | 24  |
+| wangwu  | 84  | 26  |
+| wutian  | null | 26  |
+*/
+
+
+SELECT
+A.NAME,
+A.grade,
+B.age 
+FROM
+B left join A
+WHERE
+A.NAME = B.NAME
