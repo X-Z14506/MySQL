@@ -1,0 +1,10 @@
+/*
+已知T1和T2的字段定义完全相同，T1有5条不同数据，T2有5条不同数据，
+其中T1有2条数据存在表T2中，使用UNION语句查询这些数据，要求重复数据不出现
+*/
+
+//注：union不能出现重复，union all会出现重复数据。
+
+SELECT * FROM T1 
+UNION 
+SELECT * FROM T2
