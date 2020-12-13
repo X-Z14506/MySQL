@@ -24,3 +24,14 @@ select name from emp group by name having count(name)>1;
 select depart,avg(salary) from emp where salary>10000 and sex='男' group by depart;
 //说明：这里需要注意题目要求是查询薪水大于10000的男性员工，这个是在按部门分组前就过滤，在过滤后的结果集中再查询各个部门的平均薪水
 
+
+6、批量插入数据
+//方法一：
+insert into actor (actor_id,first_name，last_name,last_update)
+values
+(1,'penelope','guiness','2006-02-15 12:34:33'),
+(2,'nick','wahlberg','2006-02-15 12:34:33');
+
+//方法二：
+insert into actor values (1,'penelope','guiness','2006-02-15 12:34:33'),
+(2,'nick','wahlberg','2006-02-15 12:34:33');
