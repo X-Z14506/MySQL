@@ -2,43 +2,57 @@
 
 1、查询男女员工的平均工资
 select sex,avg(salary) from emp group by sex;
-//说明：平均值使用聚合函数avg，并且按照性别男女分组，group by 性别字段
+--说明：平均值使用聚合函数avg，并且按照性别男女分组，group by 性别字段
 
 
 2、查询各部门的总薪水
 select depart,sum(salary) from emp group by depart;
-//说明：总薪水使用聚合函数sum取薪水字段求和，并且按照部门字段分组，group by 部门字段
+--说明：总薪水使用聚合函数sum取薪水字段求和，并且按照部门字段分组，group by 部门字段
 
 
 3、查询总薪水排名第二的部门
 select depart,sum(salary) from emp group by departorder by sum(salary) desc limit 1,1;
-//说明：order by语句先按照总薪水排序，之后取第二条数据，可以使用分页，每一页1条数据，第二页就是该结果
+--说明：order by语句先按照总薪水排序，之后取第二条数据，可以使用分页，每一页1条数据，第二页就是该结果
 
 
 4、查询姓名重复的员工信息
 select name from emp group by name having count(name)>1;
-//说明：名字重复，说明同一个名字有多条数据，可以先按照名字分组，分组之后再过滤行数大于1的，就表示同一个名字至少有2条记录，重复了
+--说明：名字重复，说明同一个名字有多条数据，可以先按照名字分组，分组之后再过滤行数大于1的，就表示同一个名字至少有2条记录，重复了
 
 
 5、查询各部门薪水大于10000的男性员工的平均薪水
 select depart,avg(salary) from emp where salary>10000 and sex='男' group by depart;
-//说明：这里需要注意题目要求是查询薪水大于10000的男性员工，这个是在按部门分组前就过滤，在过滤后的结果集中再查询各个部门的平均薪水
+--说明：这里需要注意题目要求是查询薪水大于10000的男性员工，这个是在按部门分组前就过滤，在过滤后的结果集中再查询各个部门的平均薪水
 
 
 6、批量插入数据
-//方法一：
+--方法一：
 insert into actor (actor_id,first_name，last_name,last_update)
 values
 (1,'penelope','guiness','2006-02-15 12:34:33'),
 (2,'nick','wahlberg','2006-02-15 12:34:33');
 
-//方法二：
+--方法二：
 insert into actor values (1,'penelope','guiness','2006-02-15 12:34:33'),
 (2,'nick','wahlberg','2006-02-15 12:34:33');
 
 
 7.找出所有员工当前（to date = '9999-01-01'）具体的薪水salary情况，对于相同的薪水只显示一次，并按照逆序显示
-//方法一：
+--方法一：
 select salary from salaries where to_date = '9999-01-01' group by salary order by salary desc;
-//方法二：
+--方法二：
 select distinct salary from salarie where to_date = '9999-01-01' order by salary desc;
+
+
+8.查找最晚入职员工的所有信息
+--方法一：
+select emp_no, birth_date,first_name,last_name,gender,hire_date from employees 
+order by hire_date desc limit 1 offset 0;
+--方法二：
+select * from employees order by hire_date desc limit 1;
+--方法三：
+select * from employees order by hire_date desc limit 0,1;
+--方法四：
+select * from employees where hire_date in (select max(hire_date)) from employees);
+--方法五：
+select * from employees where hire_date = (select max(hire_date)) from emolyees);
