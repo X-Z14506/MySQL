@@ -56,3 +56,12 @@ select * from employees order by hire_date desc limit 0,1;
 select * from employees where hire_date in (select max(hire_date)) from employees);
 --方法五：
 select * from employees where hire_date = (select max(hire_date)) from emolyees);
+
+
+9.查找入职员工时间排名倒数第三的员工的所有信息
+--方法一：
+SELECT emp_no, birth_date,first_name,last_name,gender,hire_date FROM employees ORDER BY hire_date DESC LIMIT 1 OFFSET 2;
+--方法二：
+SELECT * FROM employees ORDER BY hire_date DESC LIMIT 1 OFFSET 2;
+--方法三：
+SELECT * FROM employees ORDER BY hire_date DESC LIMIT 2,1;
