@@ -65,3 +65,7 @@ SELECT emp_no, birth_date,first_name,last_name,gender,hire_date FROM employees O
 SELECT * FROM employees ORDER BY hire_date DESC LIMIT 1 OFFSET 2;
 --方法三：
 SELECT * FROM employees ORDER BY hire_date DESC LIMIT 2,1;
+
+
+10.查找薪水涨幅超过15次的员工号emp_no以及其对应的涨幅次数t
+SELECT emp_no,count(emp_no) AS t FROM salaries GROUP BY emp_no HAVING count(emp_no) > 15;
