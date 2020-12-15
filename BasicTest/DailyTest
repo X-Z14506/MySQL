@@ -77,3 +77,7 @@ SELECT d.dept_no,d.emp_no,s.salary FROM dept_manager AS s WHERE d.emp_no = s.emp
 
 12.从titles表获取按照title进行分组,每组个数大于等于2，给出title以及对应的数目t
 SELECT title,count(title) AS t FROM titles GROUP BY title HAVING t>=2;
+
+
+13.查找字符串'10,A,B'中都好','出现的次数cnt
+SELECT length('10,A,B') - length(replace('10,A,B',',','')) AS cnt;
