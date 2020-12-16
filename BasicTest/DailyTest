@@ -81,3 +81,23 @@ SELECT title,count(title) AS t FROM titles GROUP BY title HAVING t>=2;
 
 13.查找字符串'10,A,B'中都好','出现的次数cnt
 SELECT length('10,A,B') - length(replace('10,A,B',',','')) AS cnt;
+
+
+14.查找所有员工入职时候的薪水情况，给出emp no以及salary，并按照emp no 进行逆序
+--方法一：
+SELECT e.emp_no,s.salary
+FROM employees AS e left JOIN salaries AS s 
+ON e.emp_no = s.emp_no
+AND 
+e.hire_date = s.from_date
+order by e.emp_no DESC;
+
+--方法二：
+SELECT e.emp_no,s.salary
+FROM employees e,salaries s
+WHERE e.emp_no = s.emp_no
+AND e.hire_date = s.from_date 
+ORDER BY e.emp_no DESC;
+
+
+
