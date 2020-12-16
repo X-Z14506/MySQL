@@ -100,4 +100,5 @@ AND e.hire_date = s.from_date
 ORDER BY e.emp_no DESC;
 
 
-
+15.获取所有非manager的员工emp no
+SELECT emp_no from employees WHERE emp_no NOT IN (SELECT emp_no FROM dept_manager);
