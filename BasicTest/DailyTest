@@ -111,3 +111,13 @@ WHERE de.emp_no != dm.emp_no
 AND de.dept_no = dm.dept_no 
 AND de.to_date = '9999-01-01'
 AND dm.to_date = '9999-01-01';
+
+
+17.查找重复的邮件(duplicate-emails)
+--方法一：
+SELECT email FROM person
+WHERE id IN(SELECT id FROM person GROUP BY email HAVING count(email)>1);
+--方法二：
+SELECT email FROM person GROUP BY email HAVING count(email)>1;
+--方法三：
+SELECT DISTINCT emali FROM person WHERE email = 'a&b.com';
