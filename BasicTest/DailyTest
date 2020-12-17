@@ -102,3 +102,12 @@ ORDER BY e.emp_no DESC;
 
 15.获取所有非manager的员工emp no
 SELECT emp_no from employees WHERE emp_no NOT IN (SELECT emp_no FROM dept_manager);
+
+
+16.获取所有员工当前的manager，如果当前的manager是自己的话，结果不显示，当前表示 to_date = '9999-01-01'
+SELECT DISTINCT de.emp_no AS emp_no,dm.emp_no AS manager_no
+FROM dept_manager AS dm
+WHERE de.emp_no != dm.emp_no
+AND de.dept_no = dm.dept_no 
+AND de.to_date = '9999-01-01'
+AND dm.to_date = '9999-01-01';
