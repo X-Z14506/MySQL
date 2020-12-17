@@ -121,3 +121,8 @@ WHERE id IN(SELECT id FROM person GROUP BY email HAVING count(email)>1);
 SELECT email FROM person GROUP BY email HAVING count(email)>1;
 --方法三：
 SELECT DISTINCT emali FROM person WHERE email = 'a&b.com';
+
+18.查找人口最多且国土面积最大的国家
+--方法一：
+SELECT name,population,area FROM world 
+WHERE area > 3000000 OR population > 25000000
